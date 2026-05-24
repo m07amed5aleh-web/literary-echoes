@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <!-- خلفية -->
+  <rect width="400" height="200" fill="#F8F9FA" rx="15"/>
+  
+  <!-- كتاب مفتوح (أيقونة الأدب) -->
+  <g id="book">
+    <!-- الجزء الأيسر من الكتاب -->
+    <path d="M 80 50 Q 70 50 70 60 L 70 140 Q 70 150 80 150 L 115 150 L 115 50 Z" 
+          fill="#3498DB" stroke="#2C3E50" stroke-width="2"/>
+    
+    <!-- الجزء الأيمن من الكتاب -->
+    <path d="M 115 50 L 115 150 L 150 150 Q 160 150 160 140 L 160 60 Q 160 50 150 50 Z" 
+          fill="#2ECC71" stroke="#2C3E50" stroke-width="2"/>
+    
+    <!-- الفقرات على الصفحة اليسرى -->
+    <line x1="80" y1="70" x2="105" y2="70" stroke="#2C3E50" stroke-width="1.5" opacity="0.6"/>
+    <line x1="80" y1="80" x2="105" y2="80" stroke="#2C3E50" stroke-width="1.5" opacity="0.6"/>
+    <line x1="80" y1="90" x2="105" y2="90" stroke="#2C3E50" stroke-width="1.5" opacity="0.6"/>
+    <line x1="80" y1="100" x2="100" y2="100" stroke="#2C3E50" stroke-width="1.5" opacity="0.6"/>
+    <line x1="80" y1="120" x2="105" y2="120" stroke="#2C3E50" stroke-width="1.5" opacity="0.6"/>
+    <line x1="80" y1="130" x2="105" y2="130" stroke="#2C3E50" stroke-width="1.5" opacity="0.6"/>
+    
+    <!-- الفقرات على الصفحة اليمنى -->
+    <line x1="120" y1="70" x2="145" y2="70" stroke="#2C3E50" stroke-width="1.5" opacity="0.6"/>
+    <line x1="120" y1="80" x2="145" y2="80" stroke="#2C3E50" stroke-width="1.5" opacity="0.6"/>
+    <line x1="120" y1="90" x2="145" y2="90" stroke="#2C3E50" stroke-width="1.5" opacity="0.6"/>
+    <line x1="120" y1="100" x2="140" y2="100" stroke="#2C3E50" stroke-width="1.5" opacity="0.6"/>
+    <line x1="120" y1="120" x2="145" y2="120" stroke="#2C3E50" stroke-width="1.5" opacity="0.6"/>
+    <line x1="120" y1="130" x2="145" y2="130" stroke="#2C3E50" stroke-width="1.5" opacity="0.6"/>
+    
+    <!-- الظل تحت الكتاب -->
+    <ellipse cx="115" cy="160" rx="45" ry="8" fill="#2C3E50" opacity="0.15"/>
+  </g>
+  
+  <!-- نص اللوجو -->
+  <text x="190" y="100" font-family="Arial, sans-serif" font-size="36" font-weight="bold" 
+        fill="#2C3E50" letter-spacing="1">
+    أصداء أدبية
+  </text>
+  
+  <!-- نص فرعي صغير -->
+  <text x="190" y="125" font-family="Arial, sans-serif" font-size="14" 
+        fill="#3498DB" letter-spacing="0.5">
+    سطور من الروح
+  </text>
+  
+  <!-- خط زخرفي -->
+  <line x1="190" y1="135" x2="320" y2="135" stroke="#3498DB" stroke-width="2" opacity="0.5"/>
+</svg>
