@@ -3,95 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="أصداء أدبية - سطور أدبية جميلة للصالح بن الصالح">
-    <title>أصداء أدبية</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <!-- Font Awesome للأيقونات -->
+    <title>أصداء أدبية - التجربة البصرية الكاملة</title>
+    <!-- Font Awesome الأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- خط القاهرة -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- ربط ملف الستستايل الخارجي -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="protected-content">
+
+    <!-- حاوية الريش المتساقط في الخلفية الأدبية -->
+    <div id="ambient-container"></div>
+
+    <!-- شريط تقدم القراءة فوق خالص -->
+    <div id="reading-progress"></div>
+
+    <!-- الهيدر وشريط التنقل -->
     <header>
-        <nav class="navbar">
-            <div class="container">
-                <h1 class="logo">أصداء أدبية</h1>
-                <ul class="nav-links">
-                    <li><a href="#home">الرئيسية</a></li>
-                    <li><a href="#about">عن الموقع</a></li>
-                    <li><a href="#works">الأعمال</a></li>
-                    <li><a href="#contact">تواصل معنا</a></li>
-                </ul>
-            </div>
+        <nav class="navbar container">
+            <h1 class="logo"><i class="fas fa-pen-fancy animate-feather"></i> أصداء أدبية</h1>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">الرئيسية</a></li>
+                <li><a href="#about">عن الموقع</a></li>
+                <li><a href="#works">الأعمال</a></li>
+                <li><a href="#contact">تواصل</a></li>
+            </ul>
+            <button id="theme-toggle" class="theme-btn" aria-label="تبديل الوضع">
+                <i class="fas fa-moon"></i>
+            </button>
         </nav>
     </header>
 
     <main>
-        <!-- قسم البطل -->
+        <!-- قسم البطل - مع تأثير الآلة الكاتبة -->
         <section id="home" class="hero">
-            <div class="container">
-                <h2>مرحباً بك في أصداء أدبية</h2>
-                <p>اكتشف عالماً من السطور الأدبية الجميلة</p>
+            <div class="container hero-content">
+                <h2 id="typewriter-text"></h2>
+                <p>اكتشف عالماً من السطور الأدبية والخواطر النثرية المحمية فكرياً والتي تحاكي واقعنا المعيش بلمسة فنية تعبر عن الوجدان.</p>
+                <a href="#works" class="btn btn-primary animate-btn">استكشف الأعمال <i class="fas fa-chevron-left"></i></a>
             </div>
         </section>
 
         <!-- قسم عن الموقع -->
         <section id="about" class="about">
             <div class="container">
-                <h2>عن الموقع</h2>
-                <p>موقع مخصص لنشر الأعمال الأدبية للصالح بن الصالح، حيث محاكاة الواقع المعيش.</p>
+                <div class="section-header">
+                    <h2>عن الموقع</h2>
+                    <p class="subtitle">نبذة عن القلم خلف هذه الكلمات</p>
+                </div>
+                <div class="about-card glass-effect">
+                    <p>موقع مخصص لنشر الأعمال الأدبية والخواطر النثرية للكاتب <strong>الصالح بن الصالح</strong>، حيث نأخذكم في رحلة لـ محاكاة الواقع المعيش من خلال كلمات تلامس الوجدان وتعبّر عن تفاصيل الحياة اليومية بلمسة فنية فريدة تعيد صياغة المشاعر الإنسانية.</p>
+                </div>
             </div>
         </section>
 
-        <!-- قسم الأعمال -->
+        <!-- قسم الأعمال الذكي مع الفلترة -->
         <section id="works" class="works">
             <div class="container">
-                <h2>أحدث الأعمال</h2>
-                <div class="works-grid">
-                    <article class="work-card">
-                        <h3>العمل الأول</h3>
-                        <p>وصف العمل الأول يأتي هنا...</p>
-                        <a href="#" class="btn">اقرأ المزيد</a>
-                    </article>
-                    <article class="work-card">
-                        <h3>العمل الثاني</h3>
-                        <p>وصف العمل الثاني يأتي هنا...</p>
-                        <a href="#" class="btn">اقرأ المزيد</a>
-                    </article>
-                    <article class="work-card">
-                        <h3>العمل الثالث</h3>
-                        <p>وصف العمل الثالث يأتي هنا...</p>
-                        <a href="#" class="btn">اقرأ المزيد</a>
-                    </article>
+                <div class="section-header">
+                    <h2>أحدث الأعمال الأدبية</h2>
+                    <p class="subtitle">كتابات وخواطر تلامس الروح</p>
                 </div>
+
+                <!-- أزرار الفلترة والتصنيف الذكية -->
+                <div class="filter-tags">
+                    <button class="tag-btn active" data-filter="all">الكل</button>
+                    <button class="tag-btn" data-filter="خواطر">خواطر</button>
+                    <button class="tag-btn" data-filter="قصص">قصص قصيرة</button>
+                    <button class="tag-btn" data-filter="أشعار">أشعار</button>
+                </div>
+
+                <!-- شبكة عرض الكروت الفخمة -->
+                <div class="works-grid" id="dynamic-works"></div>
             </div>
         </section>
 
         <!-- قسم التواصل -->
         <section id="contact" class="contact">
             <div class="container">
-                <h2>تواصل معنا</h2>
-                <form class="contact-form">
-                    <input type="text" placeholder="اسمك" required>
+                <div class="section-header">
+                    <h2>تواصل معنا</h2>
+                    <p class="subtitle">يسعدنا استقبال رسائلك وانطباعاتك حول الكتابات</p>
+                </div>
+                
+                <form class="contact-form glass-effect">
+                    <input type="text" placeholder="اسمك الكريم" required>
                     <input type="email" placeholder="بريدك الإلكتروني" required>
-                    <textarea placeholder="رسالتك" rows="5" required></textarea>
-                    <button type="submit" class="btn">إرسال</button>
+                    <textarea placeholder="اكتب رسالتك هنا..." rows="5" required></textarea>
+                    <button type="submit" class="btn btn-submit">إرسال الرسالة <i class="fas fa-paper-plane"></i></button>
                 </form>
+
+                <div class="quick-contact">
+                    <!-- تم دمج رقم الواتساب الفعلي للكاتب بشكل صحيح ومباشر -->
+                    <a href="https://wa.me/201128846244" target="_blank" class="contact-icon whatsapp" title="تواصل عبر واتساب"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/m07amed5aleh/" target="_blank" class="contact-icon instagram" title="تابعنا على انستغرام"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:info@asdaa.com" class="contact-icon email" title="راسلنا عبر البريد"><i class="fas fa-envelope"></i></a>
+                </div>
             </div>
         </section>
     </main>
 
+    <!-- النافذة المنبثقة المحدثة للوحة الإدارة (Modal) -->
+    <div id="admin-modal" class="modal-overlay">
+        <div class="modal-content glass-effect">
+            <button class="close-modal">&times;</button>
+            <h3>لوحة إدارة الكاتب ✒️</h3>
+            <form id="add-article-form" class="modal-form">
+                <input type="password" id="admin-pass" placeholder="أدخل كلمة مرور الإدارة" required>
+                
+                <select id="article-category" required style="padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px; background-color: var(--bg-color); color: var(--text-color); font-family: inherit;">
+                    <option value="خواطر">خاطرة</option>
+                    <option value="قصص">قصة قصيرة</option>
+                    <option value="أشعار">شعر / قصيدة</option>
+                </select>
+
+                <input type="text" id="article-title" placeholder="عنوان العمل الأدبي" required>
+                <textarea id="article-content" placeholder="اكتب نص العمل هنا..." rows="6" required></textarea>
+                <button type="submit" class="btn btn-primary">نشر وتأمين العمل فوراً</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- الفوتر وزر القفل -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2026 أصداء أدبية. جميع الحقوق محفوظة.</p>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/m07amed5aleh/" target="_blank" class="social-btn instagram" title="تابعنا على Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-            </div>
+        <div class="container footer-box">
+            <p>&copy; 2026 أصداء أدبية. جميع الحقوق محفوظة للكاتب الصالح بن الصالح.</p>
+            <button id="open-admin-btn" class="admin-lock-btn" title="لوحة الإدارة"><i class="fas fa-lock"></i></button>
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <!-- ربط ملف الجافا سكريبت الخارجي -->
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,183 @@
+:root {
+    --primary-color: #1a252f;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --bg-color: #f4f6f8;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --text-color: #2c3e50;
+    --light-text: #7f8c8d;
+    --border-color: rgba(0, 0, 0, 0.05);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+    --shadow-hover: 0 12px 40px 0 rgba(31, 38, 135, 0.15);
+    --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+body.dark-mode {
+    --primary-color: #3498db;
+    --secondary-color: #5dade2;
+    --bg-color: #0b1329;
+    --card-bg: rgba(28, 37, 65, 0.85);
+    --text-color: #e0e6ed;
+    --light-text: #94a3b8;
+    --border-color: rgba(255, 255, 255, 0.05);
+    --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.8;
+    direction: rtl;
+    transition: background-color 0.5s ease;
+    overflow-x: hidden;
+}
+
+.protected-content { user-select: none; -webkit-user-select: none; }
+
+/* تأثير الزجاج الحديث Glassmorphism */
+.glass-effect {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+}
+
+/* شريط القراءة العلوي السلس */
+#reading-progress {
+    position: fixed; top: 0; right: 0; height: 4px;
+    background: linear-gradient(to left, var(--secondary-color), #9b59b6);
+    width: 0%; z-index: 10000;
+}
+
+/* خلفية الريش والأوراق المتساقطة الذكية */
+#ambient-container {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 1; overflow: hidden;
+}
+.ambient-item {
+    position: absolute; color: var(--secondary-color);
+    opacity: 0.15; font-size: 1.2rem;
+    animation: fall linear infinite;
+}
+@keyframes fall {
+    0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.25; }
+    90% { opacity: 0.25; }
+    100% { transform: translateY(105vh) translateX(100px) rotate(360deg); opacity: 0; }
+}
+
+header {
+    background: var(--card-bg); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky; top: 0; z-index: 999;
+}
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 20px; }
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--text-color); }
+.logo i { color: var(--secondary-color); display: inline-block; }
+
+/* أنيميشن حركة الريشة في اللوجو */
+.animate-feather { animation: floatFeather 3s ease-in-out infinite; }
+@keyframes floatFeather {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(-10deg); }
+}
+
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--light-text); font-weight: 600; transition: var(--transition); position: relative; }
+.nav-links a::after {
+    content: ''; position: absolute; bottom: -5px; right: 0; width: 0; height: 2px;
+    background-color: var(--secondary-color); transition: var(--transition);
+}
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.nav-links a:hover, .nav-links a.active { color: var(--secondary-color); }
+
+.theme-btn { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 10px; border-radius: 50%; cursor: pointer; transition: var(--transition); }
+.theme-btn:hover { background-color: var(--border-color); transform: scale(1.1) rotate(30deg); }
+
+/* قسم البطل السينمائي */
+.hero {
+    background: linear-gradient(135deg, #111e38 0%, #1a365d 100%);
+    color: #ffffff; padding: 10rem 0; text-align: center;
+    border-radius: 0 0 80px 80px; position: relative; z-index: 2;
+}
+.hero h2 { font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700; min-height: 4.5rem; }
+.hero p { max-width: 650px; margin: 0 auto 2.5rem; font-size: 1.15rem; opacity: 0.8; }
+
+.btn { display: inline-block; padding: 0.8rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; transition: var(--transition); }
+.btn-primary { background: linear-gradient(45deg, var(--secondary-color), #2980b9); color: #ffffff; }
+.btn-primary:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4); }
+
+section { padding: 6rem 0; position: relative; z-index: 2; }
+.section-header { text-align: center; margin-bottom: 3.5rem; }
+.section-header h2 { font-size: 2.4rem; font-weight: 700; color: var(--text-color); }
+.section-header .subtitle { color: var(--light-text); font-size: 1.05rem; margin-top: 5px; }
+
+.filter-tags { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3.5rem; }
+.tag-btn { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 0.6rem 1.8rem; border-radius: 30px; cursor: pointer; font-family: inherit; font-weight: 600; transition: var(--transition); }
+.tag-btn:hover, .tag-btn.active { background: var(--secondary-color); color: #fff; border-color: var(--secondary-color); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(52, 152, 219, 0.25); }
+
+.about-card { padding: 3.5rem; border-radius: 32px; text-align: center; max-width: 850px; margin: 0 auto; }
+
+/* شبكة كروت الأعمال المحسنة */
+.works-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+
+.work-card {
+    border-radius: 24px; padding: 2.5rem; position: relative;
+    transition: var(--transition); display: flex; flex-direction: column;
+    overflow: hidden;
+}
+/* تأثير لمعة النور السحرية على الكارت */
+.work-card::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 100%);
+    transform: skewX(-25deg); transition: 0.75s; pointer-events: none;
+}
+.work-card:hover::before { left: 120%; }
+.work-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--secondary-color);
+}
+.work-card h3 { font-size: 1.45rem; margin: 12px 0; color: var(--text-color); }
+.article-text { color: var(--text-color); font-size: 0.98rem; margin-bottom: 1.5rem; transition: font-size 0.2s ease; flex-grow: 1; text-align: justify; }
+
+.card-tools { display: flex; gap: 0.5rem; margin-top: auto; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 15px; }
+.font-tools button { background: none; border: 1px solid var(--border-color); color: var(--light-text); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; transition: var(--transition); }
+.font-tools button:hover { background-color: var(--secondary-color); color: white; }
+
+.contact { border-radius: 60px 60px 0 0; }
+.contact-form { max-width: 600px; margin: 0 auto 3.5rem; display: flex; flex-direction: column; gap: 1.5rem; padding: 3rem; border-radius: 32px; }
+.contact-form input, .contact-form textarea { width: 100%; padding: 1.1rem; border: 1px solid var(--border-color); border-radius: 16px; background-color: var(--bg-color); color: var(--text-color); font-family: inherit; transition: var(--transition); }
+.contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--secondary-color); box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.15); }
+.btn-submit { background-color: var(--text-color); color: var(--bg-color); width: 100%; font-size: 1.05rem; }
+.btn-submit:hover { background-color: var(--secondary-color); color: white; transform: translateY(-3px); }
+
+.quick-contact { display: flex; justify-content: center; gap: 1.8rem; }
+.contact-icon { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #fff; text-decoration: none; transition: var(--transition); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.contact-icon:hover { transform: scale(1.2) translateY(-7px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+.whatsapp { background-color: #25d366; }
+.instagram { background-color: #e1306c; }
+.email { background-color: #3498db; }
+
+.modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; transition: var(--transition); }
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+.modal-content { padding: 3rem; border-radius: 32px; width: 90%; max-width: 500px; position: relative; }
+.close-modal { position: absolute; top: 20px; left: 20px; background: none; border:none; font-size: 2rem; color: var(--light-text); cursor: pointer; }
+.modal-form { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1.5rem; }
+.modal-form input, .modal-form textarea { padding: 0.9rem; border: 1px solid var(--border-color); border-radius: 12px; background-color: var(--bg-color); color: var(--text-color); font-family: inherit;}
+
+footer { background: var(--card-bg); padding: 2.5rem 0; border-top: 1px solid var(--border-color); position: relative; z-index: 2; }
+.footer-box { display: flex; justify-content: space-between; align-items: center; }
+.admin-lock-btn { background: none; border: none; color: var(--light-text); opacity: 0.2; cursor: pointer; transition: var(--transition); font-size: 1.1rem; }
+.admin-lock-btn:hover { opacity: 1; color: var(--accent-color); transform: scale(1.2); }
+
+@media (max-width: 768px) {
+    .navbar { flex-direction: column; gap: 1.2rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero h2 { font-size: 2.2rem; min-height: auto; }
+    .contact-form { padding: 1.5rem; }
+}
