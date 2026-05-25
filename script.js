@@ -1,8 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // الرقم السري الأساسي الجديد لـ لوحة التحكم (تقدر تغيره من هنا علطول)
+    // كود الفايربيز الخاص بمشروع أصداء أدبية لـ مازن
+    const firebaseConfig = {
+        apiKey: "AIzaSyB0OU03V2uImKXeV78TtvCqNUyNMgkbnkc",
+        authDomain: "asdaa-adabia.firebaseapp.com",
+        databaseURL: "https://asdaa-adabia-default-rtdb.firebaseio.com/", // تم صياغة رابط قاعدة البيانات ليعمل تلقائياً
+        projectId: "asdaa-adabia",
+        storageBucket: "asdaa-adabia.firebasestorage.app",
+        messagingSenderId: "266250125448",
+        appId: "1:266250125448:web:15490be2f2171a23f39f3d",
+        measurementId: "G-L49TEDQ3E5"
+    };
+    
+    // تهيئة الفايربيز
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    const db = firebase.database();
+
+    // كلمة سر لوحة الإدارة الأساسية الحالية
     const ADMIN_PASSWORD = "saleh_admin_2026";
     
-    // الأقسام وعناصر واجهة المستخدم
+    // عناصر الواجهة
     const themeToggle = document.getElementById('theme-toggle');
     const adminModal = document.getElementById('admin-modal');
     const openAdminBtn = document.getElementById('open-admin-btn');
@@ -13,9 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const readingProgress = document.getElementById('reading-progress');
     const ambientContainer = document.getElementById('ambient-container');
 
-    // ==========================================
-    // 1. تأثير الريش العائم الشاعري في الخلفية
-    // ==========================================
+    // 1. تأثير الريش العائم
     const icons = ['fa-feather', 'fa-leaf', 'fa-pen-nib'];
     function createAmbientItem() {
         if (ambientContainer.childElementCount > 15) return; 
@@ -33,9 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     setInterval(createAmbientItem, 1200);
 
-    // ==========================================
-    // 2. أنيميشن الآلة الكاتبة الذكي (Typewriter)
-    // ==========================================
+    // 2. أنيميشن الآلة الكاتبة
     const heroTitle = "مرحباً بك في أصداء أدبية ✒️";
     const typewriterEl = document.getElementById('typewriter-text');
     let charIndex = 0;
@@ -59,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 4. شريط تقدم القراءة في أعلى المتصفح
+    // 4. شريط تقدم القراءة
     window.addEventListener('scroll', () => {
         const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -74,64 +88,75 @@ document.addEventListener('DOMContentLoaded', () => {
         themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
     });
 
-    // 6. التحكم بالنافذة المنبثقة للوحة الإدارة
+    // 6. التحكم بالنافذة المنبثقة
     openAdminBtn.addEventListener('click', () => adminModal.classList.add('open'));
     closeModal.addEventListener('click', () => adminModal.classList.remove('open'));
     window.addEventListener('click', (e) => { if (e.target === adminModal) adminModal.classList.remove('open'); });
 
-    // 7. دالة حساب وقت القراءة المتوقع
+    // 7. دالة حساب وقت القراءة
     function calculateReadTime(text) {
         const words = text.trim().split(/\s+/).length;
         return Math.ceil(words / 150) || 1;
     }
 
-    // 8. عرض المقالات بشكل كروت زجاجية (تبدأ نظيفة وفارغة في أول إطلاق للموقع الفعلي)
+    // 8. عرض المقالات مباشرة وجلبها من سيرفر Firebase
     function displayArticles(filterCategory = 'all') {
-        let articles = JSON.parse(localStorage.getItem('asdaa_articles')) || [];
-
-        worksGrid.innerHTML = '';
-        const filtered = filterCategory === 'all' ? articles : articles.filter(a => a.category === filterCategory);
-
-        if(filtered.length === 0) {
-            worksGrid.innerHTML = `<p style="text-align:center; color:var(--light-text); grid-column: 1/-1; padding: 2rem;">لا توجد أعمال في هذا القسم حالياً.</p>`;
-            return;
-        }
-
-        filtered.forEach((article, index) => {
-            const readTime = calculateReadTime(article.content);
-            const card = document.createElement('article');
-            card.className = 'work-card glass-effect';
+        worksGrid.innerHTML = `<p style="text-align:center; color:var(--light-text); grid-column: 1/-1; padding: 2rem;">جاري تحميل الكلمات الأدبية...</p>`;
+        
+        db.ref('articles').once('value', (snapshot) => {
+            worksGrid.innerHTML = '';
+            let articles = [];
             
-            card.innerHTML = `
-                <div style="display: flex; justify-content: space-between; color: var(--light-text); font-size: 0.8rem; margin-bottom: 12px;">
-                    <span><i class="fas fa-bookmark"></i> ${article.category}</span>
-                    <span><i class="far fa-clock"></i> قراءة: ${readTime} د</span>
-                </div>
-                <h3>${article.title}</h3>
-                <p class="article-text">${article.content}</p>
+            snapshot.forEach((childSnapshot) => {
+                articles.push({
+                    id: childSnapshot.key,
+                    ...childSnapshot.val()
+                });
+            });
+
+            articles.reverse(); // ترتيب من الأحدث للأقدم
+
+            const filtered = filterCategory === 'all' ? articles : articles.filter(a => a.category === filterCategory);
+
+            if(filtered.length === 0) {
+                worksGrid.innerHTML = `<p style="text-align:center; color:var(--light-text); grid-column: 1/-1; padding: 2rem;">لا توجد أعمال في هذا القسم حالياً.</p>`;
+                return;
+            }
+
+            filtered.forEach((article) => {
+                const readTime = calculateReadTime(article.content);
+                const card = document.createElement('article');
+                card.className = 'work-card glass-effect';
                 
-                <div class="card-tools">
-                    <div class="font-tools">
-                        <button class="font-inc" title="تكبير الخط"><i class="fas fa-plus"></i></button>
-                        <button class="font-dec" title="تصغير الخط"><i class="fas fa-minus"></i></button>
+                card.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; color: var(--light-text); font-size: 0.8rem; margin-bottom: 12px;">
+                        <span><i class="fas fa-bookmark"></i> ${article.category}</span>
+                        <span><i class="far fa-clock"></i> قراءة: ${readTime} د</span>
                     </div>
-                    <span style="font-size:0.8rem; color:var(--light-text); font-weight: 600;">${article.date}</span>
-                </div>
-                
-                <button onclick="deleteArticle(${index})" style="position: absolute; top: 15px; left: 15px; background: none; border: none; color: var(--accent-color); cursor: pointer; font-size: 0.9rem; opacity: 0.3; transition: 0.3s;"><i class="fas fa-trash"></i></button>
-            `;
+                    <h3>${article.title}</h3>
+                    <p class="article-text">${article.content}</p>
+                    
+                    <div class="card-tools">
+                        <div class="font-tools">
+                            <button class="font-inc" title="تكبير الخط"><i class="fas fa-plus"></i></button>
+                            <button class="font-dec" title="تصغير الخط"><i class="fas fa-minus"></i></button>
+                        </div>
+                        <span style="font-size:0.8rem; color:var(--light-text); font-weight: 600;">${article.date}</span>
+                    </div>
+                    
+                    <button onclick="deleteArticle('${article.id}')" style="position: absolute; top: 15px; left: 15px; background: none; border: none; color: var(--accent-color); cursor: pointer; font-size: 0.9rem; opacity: 0.3; transition: 0.3s;"><i class="fas fa-trash"></i></button>
+                `;
 
-            // تفاعل زر السلة عند تمرير الماوس
-            card.addEventListener('mouseenter', () => card.querySelector('.fa-trash').parentElement.style.opacity = '1');
-            card.addEventListener('mouseleave', () => card.querySelector('.fa-trash').parentElement.style.opacity = '0.3');
+                card.addEventListener('mouseenter', () => card.querySelector('.fa-trash').parentElement.style.opacity = '1');
+                card.addEventListener('mouseleave', () => card.querySelector('.fa-trash').parentElement.style.opacity = '0.3');
 
-            // التحكم الذكي بحجم خط قراءة النصوص
-            const textEl = card.querySelector('.article-text');
-            let currentSize = 15.5;
-            card.querySelector('.font-inc').addEventListener('click', () => { if(currentSize < 24) { currentSize += 1.5; textEl.style.fontSize = currentSize + 'px'; } });
-            card.querySelector('.font-dec').addEventListener('click', () => { if(currentSize > 12) { currentSize -= 1.5; textEl.style.fontSize = currentSize + 'px'; } });
+                const textEl = card.querySelector('.article-text');
+                let currentSize = 15.5;
+                card.querySelector('.font-inc').addEventListener('click', () => { if(currentSize < 24) { currentSize += 1.5; textEl.style.fontSize = currentSize + 'px'; } });
+                card.querySelector('.font-dec').addEventListener('click', () => { if(currentSize > 12) { currentSize -= 1.5; textEl.style.fontSize = currentSize + 'px'; } });
 
-            worksGrid.appendChild(card);
+                worksGrid.appendChild(card);
+            });
         });
     }
 
@@ -144,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 10. نموذج إضافة وتأمين العمل الجديد للكاتب
+    // 10. نموذج إضافة العمل الجديد ورفعه للسيرفر
     if (addForm) {
         addForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -165,26 +190,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 date: new Date().toLocaleDateString('ar-EG') 
             };
             
-            let articles = JSON.parse(localStorage.getItem('asdaa_articles')) || [];
-            articles.unshift(newArticle);
-            localStorage.setItem('asdaa_articles', JSON.stringify(articles));
-
-            addForm.reset();
-            adminModal.classList.remove('open');
-            alert('تم نشر وتأمين العمل الأدبي الجديد بنجاح فائق! 🎉');
-            document.querySelector('[data-filter="all"]').click();
+            db.ref('articles').push(newArticle)
+                .then(() => {
+                    addForm.reset();
+                    adminModal.classList.remove('open');
+                    alert('تم نشر وتأمين العمل الأدبي الجديد على السيرفر بنجاح فائق! 🎉');
+                    document.querySelector('[data-filter="all"]').click();
+                })
+                .catch((error) => {
+                    alert('حدث خطأ أثناء النشر: ' + error.message);
+                });
         });
     }
 
-    // 11. دالة الحذف الآمن للمشرف
-    window.deleteArticle = function(index) {
-        const pass = prompt('أدخل كلمة المرور لتأكيد حذف هذا العمل نهائياً:');
+    // 11. دالة الحذف النهائي من سيرفر الفايربيز
+    window.deleteArticle = function(id) {
+        const pass = prompt('أدخل كلمة المرور لتأكيد حذف هذا العمل نهائياً من السيرفر:');
         if (pass === ADMIN_PASSWORD) {
-            let articles = JSON.parse(localStorage.getItem('asdaa_articles'));
-            articles.splice(index, 1);
-            localStorage.setItem('asdaa_articles', JSON.stringify(articles));
-            const activeTag = document.querySelector('.tag-btn.active').getAttribute('data-filter');
-            displayArticles(activeTag);
+            db.ref('articles/' + id).remove()
+                .then(() => {
+                    const activeTag = document.querySelector('.tag-btn.active').getAttribute('data-filter');
+                    displayArticles(activeTag);
+                });
         } else if (pass !== null) { 
             alert('كلمة المرور خاطئة!'); 
         }

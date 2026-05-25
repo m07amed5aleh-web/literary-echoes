@@ -4,24 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أصداء أدبية - التجربة البصرية الكاملة</title>
-    <!-- Font Awesome الأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- خط القاهرة -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- ربط ملف الستستايل الخارجي -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght=300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="protected-content">
 
-    <!-- حاوية الريش المتساقط في الخلفية الأدبية -->
     <div id="ambient-container"></div>
 
-    <!-- شريط تقدم القراءة فوق خالص -->
     <div id="reading-progress"></div>
 
-    <!-- الهيدر وشريط التنقل -->
     <header>
         <nav class="navbar container">
             <h1 class="logo"><i class="fas fa-pen-fancy animate-feather"></i> أصداء أدبية</h1>
@@ -38,7 +32,6 @@
     </header>
 
     <main>
-        <!-- قسم البطل - مع تأثير الآلة الكاتبة -->
         <section id="home" class="hero">
             <div class="container hero-content">
                 <h2 id="typewriter-text"></h2>
@@ -47,7 +40,6 @@
             </div>
         </section>
 
-        <!-- قسم عن الموقع -->
         <section id="about" class="about">
             <div class="container">
                 <div class="section-header">
@@ -60,7 +52,6 @@
             </div>
         </section>
 
-        <!-- قسم الأعمال الذكي مع الفلترة -->
         <section id="works" class="works">
             <div class="container">
                 <div class="section-header">
@@ -68,7 +59,6 @@
                     <p class="subtitle">كتابات وخواطر تلامس الروح</p>
                 </div>
 
-                <!-- أزرار الفلترة والتصنيف الذكية -->
                 <div class="filter-tags">
                     <button class="tag-btn active" data-filter="all">الكل</button>
                     <button class="tag-btn" data-filter="خواطر">خواطر</button>
@@ -76,12 +66,10 @@
                     <button class="tag-btn" data-filter="أشعار">أشعار</button>
                 </div>
 
-                <!-- شبكة عرض الكروت الفخمة -->
                 <div class="works-grid" id="dynamic-works"></div>
             </div>
         </section>
 
-        <!-- قسم التواصل -->
         <section id="contact" class="contact">
             <div class="container">
                 <div class="section-header">
@@ -97,7 +85,6 @@
                 </form>
 
                 <div class="quick-contact">
-                    <!-- تم دمج رقم الواتساب الفعلي للكاتب بشكل صحيح ومباشر -->
                     <a href="https://wa.me/201128846244" target="_blank" class="contact-icon whatsapp" title="تواصل عبر واتساب"><i class="fab fa-whatsapp"></i></a>
                     <a href="https://www.instagram.com/m07amed5aleh/" target="_blank" class="contact-icon instagram" title="تابعنا على انستغرام"><i class="fab fa-instagram"></i></a>
                     <a href="mailto:info@asdaa.com" class="contact-icon email" title="راسلنا عبر البريد"><i class="fas fa-envelope"></i></a>
@@ -106,7 +93,6 @@
         </section>
     </main>
 
-    <!-- النافذة المنبثقة المحدثة للوحة الإدارة (Modal) -->
     <div id="admin-modal" class="modal-overlay">
         <div class="modal-content glass-effect">
             <button class="close-modal">&times;</button>
@@ -127,7 +113,6 @@
         </div>
     </div>
 
-    <!-- الفوتر وزر القفل -->
     <footer>
         <div class="container footer-box">
             <p>&copy; 2026 أصداء أدبية. جميع الحقوق محفوظة للكاتب الصالح بن الصالح.</p>
@@ -135,7 +120,9 @@
         </div>
     </footer>
 
-    <!-- ربط ملف الجافا سكريبت الخارجي -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
     <script src="script.js"></script>
 </body>
 </html>
